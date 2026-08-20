@@ -141,15 +141,27 @@ function Index() {
 
         {isAdmin && <AdminPanel links={links} onChange={update} />}
 
-        <footer className="mt-12 text-center text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
-          <p>© {new Date().getFullYear()} {BRAND}</p>
+        <footer className="mt-12 flex flex-col items-center text-center">
+          <p className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
+            © {new Date().getFullYear()} {BRAND}
+          </p>
+
+          <div className="mt-2 h-px w-8 bg-gradient-to-r from-transparent via-border to-transparent" />
+
           <a
             href="https://wa.me/584128616071"
             target="_blank"
             rel="noreferrer"
-            className="mt-2 inline-block text-[10px] tracking-[0.2em] text-muted-foreground/80 transition-colors hover:text-foreground"
+            className="group mt-2 flex flex-col items-center"
+            aria-label="Desarrollado por DEIVI - contactar por WhatsApp"
           >
-            Desarrollado por David
+            <span className="text-[9px] uppercase tracking-[0.15em] text-muted-foreground/80">
+              Desarrollado por
+            </span>
+            <span className="font-display text-[13px] italic tracking-[0.05em] text-rose-gold transition-colors duration-300 group-hover:text-gold">
+              DEIVI
+            </span>
+            <span className="mt-0.5 h-px w-0 bg-rose-gold/50 transition-all duration-500 group-hover:w-full" />
           </a>
         </footer>
       </div>
