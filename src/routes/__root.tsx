@@ -77,12 +77,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Belle Soirée · Beauty Salon" },
+      { title: "Arinails · Beauty Salon" },
       {
         name: "description",
         content: "Uñas, cejas, pestañas y cabello. Todos nuestros enlaces en un solo lugar.",
       },
-      { property: "og:title", content: "Belle Soirée · Beauty Salon" },
+      { property: "og:title", content: "Arinails · Beauty Salon" },
       {
         property: "og:description",
         content: "Uñas, cejas, pestañas y cabello. Todos nuestros enlaces en un solo lugar.",

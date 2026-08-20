@@ -15,13 +15,13 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Belle Soirée · Uñas, Cejas, Pestañas y Cabello" },
+      { title: "Arinails · Uñas, Cejas, Pestañas y Cabello" },
       {
         name: "description",
         content:
-          "Enlaces oficiales de Belle Soirée Beauty Salon: reserva por WhatsApp y síguenos en Instagram, Facebook y TikTok.",
+          "Enlaces oficiales de Arinails Beauty Salon: reserva por WhatsApp y síguenos en Instagram, Facebook y TikTok.",
       },
-      { property: "og:title", content: "Belle Soirée · Beauty Salon" },
+      { property: "og:title", content: "Arinails · Beauty Salon" },
       {
         property: "og:description",
         content: "Uñas • Cejas • Pestañas • Cabello. Todos nuestros enlaces en un solo lugar.",
@@ -33,7 +33,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const BRAND = "Belle Soirée";
+const BRAND = "Arinails";
 const BIO = "Uñas • Cejas • Pestañas • Cabello";
 
 function Index() {
@@ -97,7 +97,7 @@ function Index() {
           <div className="rounded-full bg-gradient-gold p-[2px] shadow-glam">
             <img
               src={profileImg}
-              alt="Logo de Belle Soirée Beauty Salon"
+              alt="Logo de Arinails Beauty Salon"
               width={816}
               height={816}
               className="h-28 w-28 rounded-full border-4 border-background object-cover"
