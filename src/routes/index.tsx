@@ -149,9 +149,9 @@ function Index() {
           <div className="mt-2 h-px w-8 bg-gradient-to-r from-transparent via-border to-transparent" />
 
           <a
-            href="https://wa.me/584128616071"
+            href="https://api.whatsapp.com/send?phone=584128616071&text=Hola%20DEIVI%2C%20vi%20Arinails%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="group mt-2 flex flex-col items-center"
             aria-label="Desarrollado por DEIVI - contactar por WhatsApp"
           >
