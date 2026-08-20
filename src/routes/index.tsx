@@ -149,7 +149,7 @@ function Index() {
           <div className="mt-2 h-px w-8 bg-gradient-to-r from-transparent via-border to-transparent" />
 
           <a
-            href="https://api.whatsapp.com/send?phone=584128616071&text=Hola%20DEIVI%2C%20vi%20Arinails%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n"
+            href="https://api.whatsapp.com/send?phone=584128616071&text=Hola%20DEIVI%2C%20vi%20la%20landing%20page%20de%20Arinails%20y%20me%20gustar%C3%ADa%20informaci%C3%B3n%20para%20una%20p%C3%A1gina%20igual%20o%20similar"
             target="_blank"
             rel="noopener noreferrer"
             className="group mt-2 flex flex-col items-center"
