@@ -71,8 +71,9 @@ function Index() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-background">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-glow" />
+      <GlamDecor />
 
-      <div className="relative mx-auto w-full max-w-md px-6 pb-16 pt-6">
+      <div className="relative z-10 mx-auto w-full max-w-md px-6 pb-16 pt-6">
         <div className="flex justify-end">
           {isAdmin ? (
             <button
