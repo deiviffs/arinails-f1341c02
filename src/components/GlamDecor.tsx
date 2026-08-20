@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type Piece = {
   left: number;
@@ -62,6 +62,8 @@ function makePieces(count: number, seed: number): Piece[] {
 
 export function GlamDecor() {
   const pieces = useMemo(() => makePieces(22, 3), []);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   return (
     <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
@@ -95,7 +97,7 @@ export function GlamDecor() {
       </div>
 
       {/* floating pieces */}
-      {pieces.map((p, i) => (
+      {mounted && pieces.map((p, i) => (
         <span
           key={i}
           className="decor-float"
