@@ -39,6 +39,8 @@ function SparkleShape({ className }: { className?: string }) {
   );
 }
 
+const round = (n: number) => Math.round(n * 100) / 100;
+
 function makePieces(count: number, seed: number): Piece[] {
   const kinds: Piece["kind"][] = ["star", "flower", "sparkle"];
   return Array.from({ length: count }, (_, i) => {
@@ -47,13 +49,13 @@ function makePieces(count: number, seed: number): Piece[] {
       return x - Math.floor(x);
     };
     return {
-      left: r(1) * 100,
-      delay: r(2) * 14,
-      duration: 13 + r(3) * 12,
-      size: 10 + r(4) * 18,
+      left: round(r(1) * 100),
+      delay: round(r(2) * 14),
+      duration: round(13 + r(3) * 12),
+      size: round(10 + r(4) * 18),
       kind: kinds[Math.floor(r(5) * 3)] as Piece["kind"],
-      drift: (r(6) - 0.5) * 90,
-      opacity: 0.25 + r(7) * 0.5,
+      drift: round((r(6) - 0.5) * 90),
+      opacity: round(0.25 + r(7) * 0.5),
     };
   });
 }
