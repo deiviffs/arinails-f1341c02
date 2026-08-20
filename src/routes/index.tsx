@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { User, X, Plus, Trash2, Pencil, LogOut, Check } from "lucide-react";
 import profileImg from "@/assets/profile.jpg";
 import { BrandIcon } from "@/components/BrandIcons";
+import { GlamDecor } from "@/components/GlamDecor";
 import {
   ADMIN_PASS,
   ADMIN_USER,
