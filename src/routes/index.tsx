@@ -142,7 +142,15 @@ function Index() {
         {isAdmin && <AdminPanel links={links} onChange={update} />}
 
         <footer className="mt-12 text-center text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
-          © {new Date().getFullYear()} {BRAND}
+          <p>© {new Date().getFullYear()} {BRAND}</p>
+          <a
+            href="https://wa.me/584128616071"
+            target="_blank"
+            rel="noreferrer"
+            className="mt-2 inline-block text-[10px] tracking-[0.2em] text-muted-foreground/80 transition-colors hover:text-foreground"
+          >
+            Desarrollado por David
+          </a>
         </footer>
       </div>
 
