@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { User, X, Plus, Trash2, Pencil, LogOut, Check } from "lucide-react";
 import profileImg from "@/assets/profile.jpg";
 import { BrandIcon } from "@/components/BrandIcons";
+import { GlamDecor } from "@/components/GlamDecor";
 import {
   ADMIN_PASS,
   ADMIN_USER,
@@ -71,8 +72,9 @@ function Index() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-background">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-glow" />
+      <GlamDecor />
 
-      <div className="relative mx-auto w-full max-w-md px-6 pb-16 pt-6">
+      <div className="relative z-10 mx-auto w-full max-w-md px-6 pb-16 pt-6">
         <div className="flex justify-end">
           {isAdmin ? (
             <button
