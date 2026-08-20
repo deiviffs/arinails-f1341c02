@@ -24,8 +24,8 @@ export function BrandIcon({
   className,
 }: {
   icon: IconKey;
-  emoji?: string;
-  className?: string;
+  emoji?: string | undefined;
+  className?: string | undefined;
 }) {
   if (icon === "whatsapp") return <WhatsAppIcon className={className} />;
   if (icon === "tiktok") return <TikTokIcon className={className} />;
