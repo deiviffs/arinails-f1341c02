@@ -1,4 +1,4 @@
-import { Instagram, Facebook, Link as LinkIcon } from "lucide-react";
+import { Instagram, Facebook, Link as LinkIcon, Youtube, Send, Globe, Mail } from "lucide-react";
 import type { IconKey } from "@/lib/links-store";
 
 function WhatsAppIcon({ className }: { className?: string | undefined }) {
@@ -31,6 +31,10 @@ export function BrandIcon({
   if (icon === "tiktok") return <TikTokIcon className={className} />;
   if (icon === "instagram") return <Instagram className={className} strokeWidth={1.6} />;
   if (icon === "facebook") return <Facebook className={className} strokeWidth={1.6} />;
+  if (icon === "youtube") return <Youtube className={className} strokeWidth={1.6} />;
+  if (icon === "telegram") return <Send className={className} strokeWidth={1.6} />;
+  if (icon === "website") return <Globe className={className} strokeWidth={1.6} />;
+  if (icon === "email") return <Mail className={className} strokeWidth={1.6} />;
   if (emoji) return <span className={`grid place-items-center text-lg ${className ?? ""}`}>{emoji}</span>;
   return <LinkIcon className={className} strokeWidth={1.6} />;
 }

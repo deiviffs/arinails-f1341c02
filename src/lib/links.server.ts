@@ -25,14 +25,15 @@ function publicClient() {
 }
 
 function toLink(row: StoredLink): LinkItem {
-  return {
+  const link: LinkItem = {
     id: row.id,
     label: row.label,
     url: row.url,
     icon: row.icon as LinkItem["icon"],
-    emoji: row.emoji ?? undefined,
     visible: row.visible,
   };
+  if (row.emoji) link.emoji = row.emoji;
+  return link;
 }
 
 export async function readLinks() {
@@ -74,7 +75,7 @@ export async function persistLinks(password: string, links: LinkItem[]) {
     if (error) throw new Error("No se pudieron eliminar los enlaces.");
   }
 
-  return rows.map((row) => ({ ...row, emoji: row.emoji ?? undefined })) as LinkItem[];
+  return readLinks();
 }
 
 export function verifyAdminPassword(password: string) {

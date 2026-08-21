@@ -1,17 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { User, X, Plus, Trash2, Pencil, LogOut, Check } from "lucide-react";
+import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { User, X, Plus, Trash2, Pencil, LogOut, Check, Eye, EyeOff, LoaderCircle } from "lucide-react";
 import profileImg from "@/assets/profile.jpg";
 import { BrandIcon } from "@/components/BrandIcons";
 import { GlamDecor } from "@/components/GlamDecor";
-import {
-  ADMIN_PASS,
-  ADMIN_USER,
-  DEFAULT_LINKS,
-  loadLinks,
-  saveLinks,
-  type LinkItem,
-} from "@/lib/links-store";
+import { ADMIN_USER, type IconKey, type LinkItem } from "@/lib/links-store";
+import { getBioLinks, loginBioAdmin, saveBioLinks } from "@/lib/links.functions";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -31,6 +26,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
+  loader: () => getBioLinks(),
   component: Index,
 });
 
@@ -38,30 +34,44 @@ const BRAND = "Arinails";
 const BIO = "Uñas • Cejas • Pestañas • Cabello";
 
 function Index() {
-  const [links, setLinks] = useState<LinkItem[]>(DEFAULT_LINKS);
+  const initialLinks = Route.useLoaderData();
+  const [links, setLinks] = useState<LinkItem[]>(initialLinks);
   const [loginOpen, setLoginOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   const [error, setError] = useState("");
+  const [adminPassword, setAdminPassword] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState("");
+  const loginAdmin = useServerFn(loginBioAdmin);
+  const persist = useServerFn(saveBioLinks);
 
-  useEffect(() => {
-    setLinks(loadLinks());
-  }, []);
-
-  const update = (next: LinkItem[]) => {
+  const update = async (next: LinkItem[]) => {
+    const previous = links;
     setLinks(next);
-    saveLinks(next);
+    setSaving(true);
+    setSaveError("");
+    try {
+      const saved = await persist({ data: { password: adminPassword, links: next } });
+      setLinks(saved);
+    } catch {
+      setLinks(previous);
+      setSaveError("No se pudo guardar. Intenta de nuevo.");
+    } finally {
+      setSaving(false);
+    }
   };
 
-  const submitLogin = (e: React.FormEvent) => {
+  const submitLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (user.trim() === ADMIN_USER && pass === ADMIN_PASS) {
+    const result = user.trim() === ADMIN_USER ? await loginAdmin({ data: { password: pass } }) : { valid: false };
+    if (result.valid) {
       setIsAdmin(true);
+      setAdminPassword(pass);
       setLoginOpen(false);
       setError("");
       setUser("");
-      setPass("");
     } else {
       setError("Usuario o contraseña incorrectos.");
     }
@@ -139,7 +149,9 @@ function Index() {
           )}
         </section>
 
-        {isAdmin && <AdminPanel links={links} onChange={update} />}
+        {isAdmin && (
+          <AdminPanel links={links} onChange={update} saving={saving} saveError={saveError} />
+        )}
 
         <footer className="mt-12 flex flex-col items-center text-center">
           <p className="text-[11px] uppercase tracking-[0.25em] text-muted-foreground">
@@ -213,9 +225,6 @@ function Index() {
             <button type="submit" className="glam-button mt-6 w-full">
               Entrar
             </button>
-            <p className="mt-3 text-center text-[11px] text-muted-foreground">
-              Demo: {ADMIN_USER} / {ADMIN_PASS}
-            </p>
           </form>
         </div>
       )}
