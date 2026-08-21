@@ -235,41 +235,59 @@ function Index() {
 function AdminPanel({
   links,
   onChange,
+  saving,
+  saveError,
 }: {
   links: LinkItem[];
-  onChange: (l: LinkItem[]) => void;
+  onChange: (l: LinkItem[]) => Promise<void>;
+  saving: boolean;
+  saveError: string;
 }) {
   const [label, setLabel] = useState("");
-  const [emoji, setEmoji] = useState("");
+  const [icon, setIcon] = useState<IconKey>("instagram");
   const [url, setUrl] = useState("");
   const [editing, setEditing] = useState<string | null>(null);
 
-  const add = (e: React.FormEvent) => {
+  const add = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!label.trim() || !url.trim()) return;
-    onChange([
+    await onChange([
       ...links,
       {
         id: `custom-${Date.now()}`,
         label: label.trim(),
         url: url.trim(),
-        icon: "custom",
-        emoji: emoji.trim() || "✨",
+        icon,
         visible: true,
       },
     ]);
     setLabel("");
-    setEmoji("");
+    setIcon("instagram");
     setUrl("");
   };
 
   const patch = (id: string, data: Partial<LinkItem>) =>
     onChange(links.map((l) => (l.id === id ? { ...l, ...data } : l)));
 
+  const iconOptions: { value: IconKey; label: string }[] = [
+    { value: "instagram", label: "Instagram" },
+    { value: "facebook", label: "Facebook" },
+    { value: "whatsapp", label: "WhatsApp" },
+    { value: "tiktok", label: "TikTok" },
+    { value: "youtube", label: "YouTube" },
+    { value: "telegram", label: "Telegram" },
+    { value: "website", label: "Página web" },
+    { value: "email", label: "Correo" },
+  ];
+
   return (
     <section className="mt-10 rounded-3xl border border-border bg-card/80 p-5 shadow-glam">
       <h2 className="font-display text-2xl text-foreground">Panel de administración</h2>
-      <p className="mt-1 text-xs text-muted-foreground">Gestiona tus enlaces</p>
+      <div className="mt-1 flex min-h-5 items-center gap-1.5 text-xs text-muted-foreground">
+        {saving && <LoaderCircle className="h-3.5 w-3.5 animate-spin" />}
+        <span>{saving ? "Guardando…" : "Los cambios quedan guardados permanentemente"}</span>
+      </div>
+      {saveError && <p className="mt-2 text-xs text-destructive">{saveError}</p>}
 
       <ul className="mt-5 space-y-3">
         {links.map((l) => (
@@ -301,19 +319,17 @@ function AdminPanel({
                   <Trash2 className="h-3.5 w-3.5" strokeWidth={1.8} />
                 </button>
                 <button
-                  role="switch"
-                  aria-checked={l.visible}
-                  aria-label={`Mostrar ${l.label}`}
+                  type="button"
+                  aria-pressed={l.visible}
+                  aria-label={l.visible ? `Ocultar ${l.label}` : `Mostrar ${l.label}`}
                   onClick={() => patch(l.id, { visible: !l.visible })}
-                  className={`relative h-6 w-11 rounded-full transition-colors ${
-                    l.visible ? "bg-primary" : "bg-muted"
-                  }`}
+                  className={`soft-chip ${l.visible ? "text-primary" : "text-muted-foreground/50"}`}
                 >
-                  <span
-                    className={`absolute top-0.5 h-5 w-5 rounded-full bg-card shadow transition-all ${
-                      l.visible ? "left-[22px]" : "left-0.5"
-                    }`}
-                  />
+                  {l.visible ? (
+                    <Eye className="h-4 w-4" strokeWidth={1.7} />
+                  ) : (
+                    <EyeOff className="h-4 w-4" strokeWidth={1.7} />
+                  )}
                 </button>
               </div>
             </div>
@@ -332,6 +348,25 @@ function AdminPanel({
                   className="glam-input"
                   placeholder="Enlace / URL"
                 />
+                <div className="grid grid-cols-4 gap-2 pt-1" aria-label={`Icono de ${l.label}`}>
+                  {iconOptions.map((option) => (
+                    <button
+                      type="button"
+                      key={option.value}
+                      title={option.label}
+                      aria-label={option.label}
+                      aria-pressed={l.icon === option.value}
+                      onClick={() => patch(l.id, { icon: option.value, emoji: undefined })}
+                      className={`grid h-10 place-items-center rounded-xl border transition-colors ${
+                        l.icon === option.value
+                          ? "border-primary bg-accent text-foreground"
+                          : "border-border bg-background text-muted-foreground"
+                      }`}
+                    >
+                      <BrandIcon icon={option.value} className="h-4 w-4" />
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
           </li>
@@ -348,21 +383,37 @@ function AdminPanel({
           className="glam-input"
           placeholder="Texto del botón"
         />
-        <input
-          value={emoji}
-          onChange={(e) => setEmoji(e.target.value)}
-          className="glam-input"
-          placeholder="Icono / Logo (emoji, ej. 💅)"
-        />
+        <div>
+          <p className="mb-2 text-xs text-muted-foreground">Selecciona un icono</p>
+          <div className="grid grid-cols-4 gap-2">
+            {iconOptions.map((option) => (
+              <button
+                type="button"
+                key={option.value}
+                title={option.label}
+                aria-label={option.label}
+                aria-pressed={icon === option.value}
+                onClick={() => setIcon(option.value)}
+                className={`grid h-11 place-items-center rounded-xl border transition-colors ${
+                  icon === option.value
+                    ? "border-primary bg-accent text-foreground"
+                    : "border-border bg-background text-muted-foreground"
+                }`}
+              >
+                <BrandIcon icon={option.value} className="h-5 w-5" />
+              </button>
+            ))}
+          </div>
+        </div>
         <input
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           className="glam-input"
           placeholder="Enlace / URL"
         />
-        <button type="submit" className="glam-button flex w-full items-center justify-center gap-2">
-          <Plus className="h-4 w-4" strokeWidth={2} />
-          Agregar
+        <button disabled={saving} type="submit" className="glam-button flex w-full items-center justify-center gap-2 disabled:opacity-60">
+          {saving ? <LoaderCircle className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" strokeWidth={2} />}
+          {saving ? "Guardando" : "Agregar"}
         </button>
       </form>
     </section>
