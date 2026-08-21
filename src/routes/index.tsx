@@ -356,7 +356,14 @@ function AdminPanel({
                       title={option.label}
                       aria-label={option.label}
                       aria-pressed={l.icon === option.value}
-                      onClick={() => patch(l.id, { icon: option.value, emoji: undefined })}
+                      onClick={() => {
+                        const next = links.map((item) => {
+                          if (item.id !== l.id) return item;
+                          const { emoji: _emoji, ...rest } = item;
+                          return { ...rest, icon: option.value };
+                        });
+                        void onChange(next);
+                      }}
                       className={`grid h-10 place-items-center rounded-xl border transition-colors ${
                         l.icon === option.value
                           ? "border-primary bg-accent text-foreground"
