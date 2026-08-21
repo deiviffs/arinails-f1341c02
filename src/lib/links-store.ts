@@ -1,4 +1,13 @@
-export type IconKey = "instagram" | "facebook" | "whatsapp" | "tiktok" | "custom";
+export type IconKey =
+  | "instagram"
+  | "facebook"
+  | "whatsapp"
+  | "tiktok"
+  | "youtube"
+  | "telegram"
+  | "website"
+  | "email"
+  | "custom";
 
 export type LinkItem = {
   id: string;
@@ -22,28 +31,4 @@ export const DEFAULT_LINKS: LinkItem[] = [
   { id: "tiktok", label: "TikTok", url: TIKTOK_URL, icon: "tiktok", visible: true },
 ];
 
-const STORAGE_KEY = "bio-links-v1";
-
-// Credenciales de la administradora (demo, sin backend).
 export const ADMIN_USER = "admin";
-export const ADMIN_PASS = "belle2026";
-
-export function loadLinks(): LinkItem[] {
-  if (typeof window === "undefined") return DEFAULT_LINKS;
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return DEFAULT_LINKS;
-    const parsed = JSON.parse(raw) as LinkItem[];
-    return Array.isArray(parsed) && parsed.length ? parsed : DEFAULT_LINKS;
-  } catch {
-    return DEFAULT_LINKS;
-  }
-}
-
-export function saveLinks(links: LinkItem[]) {
-  try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(links));
-  } catch {
-    /* ignore */
-  }
-}
