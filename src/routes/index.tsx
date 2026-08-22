@@ -3,9 +3,10 @@ import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { User, X, Plus, Trash2, Pencil, LogOut, Check, Eye, EyeOff, LoaderCircle, ChevronRight } from "lucide-react";
 import profileImg from "@/assets/profile.jpg";
+import bgMocha from "@/assets/bg-mocha.jpg";
 import { BrandIcon } from "@/components/BrandIcons";
-import { GlamDecor } from "@/components/GlamDecor";
 import { ADMIN_USER, type IconKey, type LinkItem } from "@/lib/links-store";
+
 import { getBioLinks, loginBioAdmin, saveBioLinks } from "@/lib/links.functions";
 
 export const Route = createFileRoute("/")({
@@ -81,8 +82,13 @@ function Index() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-background">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-glow" />
-      <GlamDecor />
+      <div
+        className="pointer-events-none fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${bgMocha})` }}
+        aria-hidden="true"
+      />
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(55%_40%_at_50%_45%,color-mix(in_oklab,var(--background)_70%,transparent),transparent_80%)]" />
+
 
       <div className="relative z-10 mx-auto w-full max-w-md px-6 pb-16 pt-6">
         <div className="flex justify-end">
