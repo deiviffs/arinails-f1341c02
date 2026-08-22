@@ -81,8 +81,13 @@ function Index() {
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-background">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-glow" />
-      <GlamDecor />
+      <div
+        className="pointer-events-none fixed inset-0 z-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${bgMocha})` }}
+        aria-hidden="true"
+      />
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(70%_50%_at_50%_45%,color-mix(in_oklab,var(--background)_88%,transparent),transparent_75%)]" />
+
 
       <div className="relative z-10 mx-auto w-full max-w-md px-6 pb-16 pt-6">
         <div className="flex justify-end">
