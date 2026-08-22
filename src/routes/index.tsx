@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { User, X, Plus, Trash2, Pencil, LogOut, Check, Eye, EyeOff, LoaderCircle } from "lucide-react";
+import { User, X, Plus, Trash2, Pencil, LogOut, Check, Eye, EyeOff, LoaderCircle, ChevronRight } from "lucide-react";
 import profileImg from "@/assets/profile.jpg";
 import { BrandIcon } from "@/components/BrandIcons";
 import { GlamDecor } from "@/components/GlamDecor";
