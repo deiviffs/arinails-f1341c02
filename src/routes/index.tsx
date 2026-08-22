@@ -3,9 +3,10 @@ import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { User, X, Plus, Trash2, Pencil, LogOut, Check, Eye, EyeOff, LoaderCircle, ChevronRight } from "lucide-react";
 import profileImg from "@/assets/profile.jpg";
+import bgMocha from "@/assets/bg-mocha.jpg";
 import { BrandIcon } from "@/components/BrandIcons";
-import { GlamDecor } from "@/components/GlamDecor";
 import { ADMIN_USER, type IconKey, type LinkItem } from "@/lib/links-store";
+
 import { getBioLinks, loginBioAdmin, saveBioLinks } from "@/lib/links.functions";
 
 export const Route = createFileRoute("/")({
