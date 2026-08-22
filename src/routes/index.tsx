@@ -87,7 +87,7 @@ function Index() {
         style={{ backgroundImage: `url(${bgMocha})` }}
         aria-hidden="true"
       />
-      <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(70%_50%_at_50%_45%,color-mix(in_oklab,var(--background)_88%,transparent),transparent_75%)]" />
+      <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(55%_40%_at_50%_45%,color-mix(in_oklab,var(--background)_70%,transparent),transparent_80%)]" />
 
 
       <div className="relative z-10 mx-auto w-full max-w-md px-6 pb-16 pt-6">
