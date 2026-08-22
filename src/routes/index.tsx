@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { User, X, Plus, Trash2, Pencil, LogOut, Check, Eye, EyeOff, LoaderCircle } from "lucide-react";
+import { User, X, Plus, Trash2, Pencil, LogOut, Check, Eye, EyeOff, LoaderCircle, ChevronRight } from "lucide-react";
 import profileImg from "@/assets/profile.jpg";
 import { BrandIcon } from "@/components/BrandIcons";
 import { GlamDecor } from "@/components/GlamDecor";
@@ -106,22 +106,31 @@ function Index() {
         </div>
 
         <header className="mt-2 flex flex-col items-center text-center">
-          <div className="rounded-full bg-gradient-gold p-[2px] shadow-glam">
-            <img
-              src={profileImg}
-              alt="Logo de Arinails Beauty Salon"
-              width={816}
-              height={816}
-              className="h-28 w-28 rounded-full border-4 border-background object-cover"
-            />
+          <div className="rounded-full border border-gold/60 p-2">
+            <div className="rounded-full bg-gradient-gold p-[2px] shadow-glam">
+              <img
+                src={profileImg}
+                alt="Logo de Arinails Beauty Salon"
+                width={816}
+                height={816}
+                className="h-28 w-28 rounded-full border-4 border-background object-cover"
+              />
+            </div>
           </div>
-          <h1 className="mt-5 font-display text-4xl font-medium tracking-tight text-foreground">
+          <h1 className="mt-5 font-display text-[2.6rem] leading-none font-medium tracking-tight text-foreground">
             {BRAND}
           </h1>
-          <p className="mt-2 text-[13px] uppercase tracking-[0.22em] text-muted-foreground">
+          <p className="mt-3 text-[11px] uppercase tracking-[0.42em] text-muted-foreground">
+            Beauty Studio
+          </p>
+          <div className="mt-4 flex items-center gap-3">
+            <span className="h-px w-12 bg-gradient-to-r from-transparent to-gold" />
+            <span className="h-1.5 w-1.5 rotate-45 bg-gold" />
+            <span className="h-px w-12 bg-gradient-to-l from-transparent to-gold" />
+          </div>
+          <p className="mt-4 text-[12px] uppercase tracking-[0.2em] text-muted-foreground">
             {BIO}
           </p>
-          <span className="mt-5 h-px w-16 bg-gradient-gold" />
         </header>
 
         <section className="mt-8 space-y-3.5">
@@ -137,11 +146,13 @@ function Index() {
                 <BrandIcon icon={l.icon} emoji={l.emoji} className="h-5 w-5" />
               </span>
               <span className="flex-1 text-left">{l.label}</span>
-              <span className="text-xs tracking-[0.2em] text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">
-                ↗
-              </span>
+              <ChevronRight
+                className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1"
+                strokeWidth={1.8}
+              />
             </a>
           ))}
+
           {visible.length === 0 && (
             <p className="rounded-2xl border border-dashed border-border/70 p-6 text-center text-sm text-muted-foreground">
               No hay enlaces visibles.
